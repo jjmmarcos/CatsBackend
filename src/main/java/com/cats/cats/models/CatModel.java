@@ -14,8 +14,10 @@ public class CatModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Long id;
-    
+    private Long id;    
+    private String name;
+    private String description;
+    private String weight;
     private String temperament;
     private String origin;
     private String life_span;
@@ -26,6 +28,30 @@ public class CatModel {
 
     public Long getId() {
         return this.id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getWeight() {
+        return this.weight;
     }
 
     public void setTemperament(String temperament) {
