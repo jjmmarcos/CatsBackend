@@ -7,5 +7,5 @@ import com.cats.cats.models.CatModel;
 
 @Repository
 public interface CatRepository extends CrudRepository<CatModel, Long> {
-    
+
 }
