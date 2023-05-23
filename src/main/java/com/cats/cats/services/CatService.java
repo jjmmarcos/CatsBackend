@@ -48,4 +48,8 @@ public class CatService {
 
         return updatedCat;
     }
+
+    public void deleteCatById(Long id) {
+        catRepository.deleteById(id);
+    }
 }

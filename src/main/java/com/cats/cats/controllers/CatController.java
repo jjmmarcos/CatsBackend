@@ -3,9 +3,12 @@ package com.cats.cats.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,13 +54,13 @@ public class CatController {
         return ResponseEntity.ok(updatedCat);
     }
 
-    // @DeleteMapping("/{id}")
-    // public ResponseEntity<Void> eliminarGato(@PathVariable("id") Long id) {
-    //     boolean eliminado = gatoService.eliminarGato(id);
-    //     if (eliminado) {
-    //         return ResponseEntity.noContent().build();
-    //     } else {
-    //         return ResponseEntity.notFound().build();
-    //     }
-    // }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteCat(@PathVariable("id") Long id) {
+        catService.deleteCatById(id);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return new ResponseEntity<>("{\"message\": \"Cat deleted successfully\"}", headers, HttpStatus.OK);
+    }
 }
