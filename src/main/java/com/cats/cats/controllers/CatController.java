@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import com.cats.cats.models.CatModel;
 import com.cats.cats.services.CatService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/cats")
 public class CatController {
 
@@ -36,22 +38,18 @@ public class CatController {
         return catService.getCatById(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public ResponseEntity<CatModel> addCat(@RequestBody CatModel cat) {
         CatModel newCat = catService.addCat(cat);
         return ResponseEntity.status(HttpStatus.CREATED).body(newCat);
     }
 
-    // @PutMapping("/{id}")
-    // public ResponseEntity<Gato> actualizarGato(@PathVariable("id") Long id, @RequestBody Gato gato) {
-    //     Gato gatoActualizado = gatoService.actualizarGato(id, gato);
-    //     if (gatoActualizado != null) {
-    //         return ResponseEntity.ok(gatoActualizado);
-    //     } else {
-    //         return ResponseEntity.notFound().build();
-    //     }
-    // }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/{id}")
+    public ResponseEntity<CatModel> updateCat(@PathVariable Long id, @RequestBody CatModel catModel) {
+        CatModel updatedCat = catService.updateCat(id, catModel);
+        return ResponseEntity.ok(updatedCat);
+    }
 
     // @DeleteMapping("/{id}")
     // public ResponseEntity<Void> eliminarGato(@PathVariable("id") Long id) {

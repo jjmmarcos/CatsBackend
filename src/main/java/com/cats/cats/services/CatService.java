@@ -31,4 +31,21 @@ public class CatService {
         return catRepository.findById(id)
             .orElseThrow(NoSuchElementException::new);
     }
+
+    public CatModel updateCat(Long id, CatModel catModel) {
+        CatModel existingCat = catRepository.findById(id)
+                .orElseThrow();
+
+        existingCat.setImg(catModel.getImg());
+        existingCat.setName(catModel.getName());
+        existingCat.setDescription(catModel.getDescription());
+        existingCat.setWeight(catModel.getWeight());
+        existingCat.setTemperament(catModel.getTemperament());
+        existingCat.setOrigin(catModel.getOrigin());
+        existingCat.setLife_span(catModel.getLife_span());
+
+        CatModel updatedCat = catRepository.save(existingCat);
+
+        return updatedCat;
+    }
 }
