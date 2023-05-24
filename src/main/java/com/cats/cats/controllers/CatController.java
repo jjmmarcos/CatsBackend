@@ -42,9 +42,12 @@ public class CatController {
     }
 
     @PostMapping
-    public ResponseEntity<CatModel> addCat(@RequestBody CatModel cat) {
-        CatModel newCat = catService.addCat(cat);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newCat);
+    public ResponseEntity<String> addCat(@RequestBody CatModel cat) {
+        catService.addCat(cat);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return new ResponseEntity<>("{\"message\": \"Cat deleted successfully\"}", headers, HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
