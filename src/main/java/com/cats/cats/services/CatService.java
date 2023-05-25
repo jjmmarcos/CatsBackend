@@ -52,4 +52,8 @@ public class CatService {
     public void deleteCatById(Long id) {
         catRepository.deleteById(id);
     }
+
+    public void deleteAllCats() {
+        catRepository.deleteAll();
+    }
 }

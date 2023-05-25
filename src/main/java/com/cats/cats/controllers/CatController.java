@@ -26,6 +26,8 @@ import com.cats.cats.services.CatService;
 public class CatController {
 
     private final CatService catService;
+    private HttpHeaders headers = new HttpHeaders();
+        
 
     public CatController(CatService catService) {
         this.catService = catService;
@@ -44,7 +46,7 @@ public class CatController {
     @PostMapping
     public ResponseEntity<String> addCat(@RequestBody CatModel cat) {
         catService.addCat(cat);
-        HttpHeaders headers = new HttpHeaders();
+
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         return new ResponseEntity<>("{\"message\": \"Cat deleted successfully\"}", headers, HttpStatus.OK);
@@ -61,9 +63,17 @@ public class CatController {
     public ResponseEntity<String> deleteCat(@PathVariable("id") Long id) {
         catService.deleteCatById(id);
 
-        HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         return new ResponseEntity<>("{\"message\": \"Cat deleted successfully\"}", headers, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<String> deleteAllCats() {
+        catService.deleteAllCats();
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return new ResponseEntity<>("{\"message\": \"All cats have been deleted\"}", headers, HttpStatus.OK);
     }
 }
